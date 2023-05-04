@@ -4,6 +4,7 @@ import { Knex } from 'knex'
 declare module 'knex/types/tables' {
   export interface Meals {
     id: string
+    session_id: string
     name: string
     description: string
     mealed_at: string
