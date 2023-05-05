@@ -2,17 +2,17 @@
 import { Knex } from 'knex'
 
 declare module 'knex/types/tables' {
-  export interface Meals {
+  export interface Meal {
     id: string
     session_id: string
     name: string
     description: string
     mealed_at: string
-    in_diet: boolean
+    is_diet: boolean
     created_at: Date
   }
 
   export interface Tables {
-    meals: Meals
+    meals: Meal
   }
 }

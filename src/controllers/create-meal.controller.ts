@@ -12,10 +12,10 @@ export async function createMealController(
     name: z.string(),
     description: z.string(),
     mealedAt: z.string(),
-    inDiet: z.boolean(),
+    isDiet: z.boolean(),
   })
 
-  const { name, description, mealedAt, inDiet } = createMealBodySchema.parse(
+  const { name, description, mealedAt, isDiet } = createMealBodySchema.parse(
     request.body,
   )
 
@@ -36,7 +36,7 @@ export async function createMealController(
     name,
     description,
     mealed_at: mealedAt,
-    in_diet: inDiet,
+    is_diet: isDiet,
   })
 
   return reply.code(201).send()

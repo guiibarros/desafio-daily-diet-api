@@ -19,10 +19,10 @@ export async function updateMealController(
     name: z.string(),
     description: z.string(),
     mealedAt: z.string(),
-    inDiet: z.boolean(),
+    isDiet: z.boolean(),
   })
 
-  const { name, description, mealedAt, inDiet } = updateMealBodySchema.parse(
+  const { name, description, mealedAt, isDiet } = updateMealBodySchema.parse(
     request.body,
   )
 
@@ -35,7 +35,7 @@ export async function updateMealController(
       name,
       description,
       mealed_at: mealedAt,
-      in_diet: inDiet,
+      is_diet: isDiet,
     })
 
   return reply.code(204).send()
