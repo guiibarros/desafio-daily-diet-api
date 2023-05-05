@@ -2,6 +2,7 @@ import { FastifyInstance } from 'fastify'
 
 import { createMealController } from '../controllers/create-meal.controller'
 import { deleteMealController } from '../controllers/delete-meal.controller'
+import { getSummaryController } from '../controllers/get-summary.controller'
 import { listMealsController } from '../controllers/list-meals.controller'
 import { showMealController } from '../controllers/show-meal.controller'
 import { updateMealController } from '../controllers/update-meal.controller'
@@ -22,6 +23,14 @@ export async function mealsRoutes(app: FastifyInstance) {
       preHandler: [checkSessionIdExists],
     },
     showMealController,
+  )
+
+  app.get(
+    '/summary',
+    {
+      preHandler: [checkSessionIdExists],
+    },
+    getSummaryController,
   )
 
   app.post('/', createMealController)
