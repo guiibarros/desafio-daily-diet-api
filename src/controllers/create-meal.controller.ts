@@ -19,20 +19,11 @@ export async function createMealController(
     request.body,
   )
 
-  let { sessionId } = request.cookies
-
-  if (!sessionId) {
-    sessionId = randomUUID()
-
-    reply.setCookie('sessionId', sessionId, {
-      path: '/',
-      maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-    })
-  }
+  const { sub: userId } = request.user
 
   await knex('meals').insert({
     id: randomUUID(),
-    session_id: sessionId,
+    user_id: userId,
     name,
     description,
     mealed_at: mealedAt,

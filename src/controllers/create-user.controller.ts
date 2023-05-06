@@ -21,7 +21,9 @@ export async function createUserController(
 
   if (userAlreadyExists) {
     return reply.code(400).send({
-      error: 'User already exists',
+      error: {
+        message: 'User already exists',
+      },
     })
   }
 

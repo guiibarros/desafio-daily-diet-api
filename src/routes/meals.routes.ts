@@ -6,48 +6,20 @@ import { getSummaryController } from '../controllers/get-summary.controller'
 import { listMealsController } from '../controllers/list-meals.controller'
 import { showMealController } from '../controllers/show-meal.controller'
 import { updateMealController } from '../controllers/update-meal.controller'
-import { checkSessionIdExists } from '../middlewares/check-session-id-exists'
+import { verifyJwt } from '../plugins/verify-jwt'
 
 export async function mealsRoutes(app: FastifyInstance) {
-  app.get(
-    '/',
-    {
-      preHandler: [checkSessionIdExists],
-    },
-    listMealsController,
-  )
+  app.addHook('onRequest', verifyJwt)
 
-  app.get(
-    '/:id',
-    {
-      preHandler: [checkSessionIdExists],
-    },
-    showMealController,
-  )
+  app.get('/', listMealsController)
 
-  app.get(
-    '/summary',
-    {
-      preHandler: [checkSessionIdExists],
-    },
-    getSummaryController,
-  )
+  app.get('/:id', showMealController)
+
+  app.get('/summary', getSummaryController)
 
   app.post('/', createMealController)
 
-  app.put(
-    '/:id',
-    {
-      preHandler: [checkSessionIdExists],
-    },
-    updateMealController,
-  )
+  app.put('/:id', updateMealController)
 
-  app.delete(
-    '/:id',
-    {
-      preHandler: [checkSessionIdExists],
-    },
-    deleteMealController,
-  )
+  app.delete('/:id', deleteMealController)
 }

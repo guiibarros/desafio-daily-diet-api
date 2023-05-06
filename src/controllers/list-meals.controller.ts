@@ -3,10 +3,10 @@ import { FastifyRequest } from 'fastify'
 import { knex } from '../database'
 
 export async function listMealsController(request: FastifyRequest) {
-  const { sessionId } = request.cookies
+  const { sub: userId } = request.user
 
   const meals = await knex('meals')
-    .where('session_id', sessionId)
+    .where('user_id', userId)
     .orderBy('mealed_at')
     .select()
 

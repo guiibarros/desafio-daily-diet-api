@@ -7,7 +7,7 @@ export async function deleteMealController(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
-  const { sessionId } = request.cookies
+  const { sub: userId } = request.user
 
   const updateMealParamsSchema = z.object({
     id: z.string().uuid(),
@@ -18,7 +18,7 @@ export async function deleteMealController(
   await knex('meals')
     .where({
       id,
-      session_id: sessionId,
+      user_id: userId,
     })
     .delete()
 

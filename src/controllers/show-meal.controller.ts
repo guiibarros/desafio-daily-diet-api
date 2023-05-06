@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { knex } from '../database'
 
 export async function showMealController(request: FastifyRequest) {
-  const { sessionId } = request.cookies
+  const { sub: userId } = request.user
 
   const updateMealParamsSchema = z.object({
     id: z.string().uuid(),
@@ -15,7 +15,7 @@ export async function showMealController(request: FastifyRequest) {
   const meal = await knex('meals')
     .where({
       id,
-      session_id: sessionId,
+      user_id: userId,
     })
     .select()
 
