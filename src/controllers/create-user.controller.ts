@@ -1,3 +1,4 @@
+import { hash } from 'bcrypt'
 import { randomUUID } from 'crypto'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
@@ -24,11 +25,13 @@ export async function createUserController(
     })
   }
 
+  const passwordHash = await hash(password, 8)
+
   await knex('users').insert({
     id: randomUUID(),
     name,
     email,
-    password,
+    password: passwordHash,
   })
 
   return reply.code(201).send()
