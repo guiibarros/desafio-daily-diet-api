@@ -4,7 +4,7 @@ import { Knex } from 'knex'
 declare module 'knex/types/tables' {
   export interface Meal {
     id: string
-    session_id: string
+    user_id: string
     name: string
     description: string
     mealed_at: string
@@ -12,7 +12,16 @@ declare module 'knex/types/tables' {
     created_at: Date
   }
 
+  export interface User {
+    id: string
+    name: string
+    email: string
+    password: string
+    created_at: Date
+  }
+
   export interface Tables {
     meals: Meal
+    users: User
   }
 }
